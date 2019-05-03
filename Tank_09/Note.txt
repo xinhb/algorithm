@@ -1,0 +1,20 @@
+一、整体架构
+  TankFrame类：
+    1、实现窗口的功能，包括窗口大小、可见、按键监听、窗口关闭监听。
+    2、绘制坦克和子弹对象（传出Graphic对象到Tank和Bullet）
+    3、坦克的移动功能，先定义按键状态，再由状态确定坦克的方向。
+      备注：坦克的方向是定义在Tank类中的，在TankFrame中通过setDir（）传递坦克方向给Tank类
+
+  二、Tank类：
+    1、构造方法，坦克的初始位置（x, y）、大小(weight,hight)、方向(dir)
+    2、paint方法，拿到TankFrame中的画笔，画出坦克当前位置
+    3、move方法，控制坦克的位置（x,y)
+    4、fire方法：坦克的开火功能
+      原理：TankFrame中监听到开火按键释放就new出一个子弹对象
+      分析：每次new子弹类都需在TankFrame类中画出来，需要将子弹类传入TankFrame中，且fire方法是在Tank类中实现的
+      实现：Tank类中持有TankFrame的引用，然后可以给bullet引用新的子弹对象。
+
+  三、Bullet类：
+    1、定义子弹的属性：位置、大小、速度 、方向
+       备注：子弹射击方向 与 坦克移动方向相同。所以出入坦克的dir
+    2、画出自己，子弹的dir是new的时候根据坦克方向确定的。
